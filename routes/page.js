@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+router.get("1", (req, res, next) => {
 
-
-router.get("/", (req, res, next) => {
-   
-            res.render('index', {});
+    res.render('blog_page', {});
 });
-
-
 
 module.exports = router;

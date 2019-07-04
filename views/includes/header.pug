@@ -1,0 +1,22 @@
+nav.navbar.navbar-expand-lg.navbar-light.fixed-top(id="mainNav")
+    div.container
+        a.navbar-brand(href="/") Start Bootstrap
+        button.navbar-toggler.navbar-toggler-right(type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation") Menu
+            i.fas.fa-bars
+        div.collapse.navbar-collapse(id="navbarResponsive")
+            ul.navbar-nav.ml-auto
+                li.nav-item
+                    a.nav-link(href="/") Home     
+                li.nav-item
+                    a.nav-link(href="/about") About
+                li.nav-item
+                    a.nav-link(href="/contact") Contact
+
+header.masthead(style=`background-image: url(${url})`)
+    div.overlay
+    div.container
+        div.row
+            div.col-lg-8.col-md-10.mx-auto
+                div.site-heading
+                    h1 #{title}
+                    span.subheading #{subtitle}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+html(lang="en")
+    include includes/head.pug
+    body
+        -var url='/img/contact-bg.jpg';
+        -var title='Contact Me';
+        -var subtitle='ave questions? I have answers.';
+        include includes/header.pug
+        div.container
+            div.row
+                div.col-lg-8.col-md-10.mx-auto Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!
+                div.col-lg-8.col-md-10.mx-auto
+                    form#contactForm(name='sentMessage' novalidate='')
+                        .control-group
+                            .form-group.floating-label-form-group.controls
+                            label Name
+                            input#name.form-control(type='text' placeholder='Name' required='' data-validation-required-message='Please enter your name.')
+                            p.help-block.text-danger
+                        .control-group
+                            .form-group.floating-label-form-group.controls
+                            label Email Address
+                            input#email.form-control(type='email' placeholder='Email Address' required='' data-validation-required-message='Please enter your email address.')
+                            p.help-block.text-danger
+                        .control-group
+                            .form-group.col-xs-12.floating-label-form-group.controls
+                            label Phone Number
+                            input#phone.form-control(type='tel' placeholder='Phone Number' required='' data-validation-required-message='Please enter your phone number.')
+                            p.help-block.text-danger
+                        .control-group
+                            .form-group.floating-label-form-group.controls
+                            label Message
+                            textarea#message.form-control(rows='5' placeholder='Message' required='' data-validation-required-message='Please enter a message.')
+                            p.help-block.text-danger
+                        br
+                        #success
+                        .form-group
+                            button#sendMessageButton.btn.btn-primary(type='submit') Send
+        include includes/footer.pug
+        
