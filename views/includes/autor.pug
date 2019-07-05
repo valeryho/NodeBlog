@@ -1,2 +1,12 @@
-
-               
+.container
+    .row
+        div.col-lg-8.col-md-10.mx-auto 
+            form(method='post' action="/author/add")
+                label ADD AUTHOR 
+                input(type="text" name="author")
+                button.btn-primary(type='submit') ADD
+            if authors
+                h3 Author list
+                ul
+                    for author in authors
+                        li=author.author

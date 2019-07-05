@@ -5,17 +5,19 @@
     const multer = require('multer');
     const upload = multer({dest: 'uploads/'});
     const moment = require('moment');
-
+    const bodyParser = require('body-parser');
     const expressValidator = require('express-validator');
 
     const mongo = require('mongodb');
     const mongooes = require('mongoose');
 
-    mongooes.connect("mongodb+srv://2015allreal:xq_ZqI18@cluster0-nojjm.mongodb.net/test?retryWrites=true&w=majority")
+    mongooes.connect("mongodb+srv://valery:admin333@cluster0-hglsu.mongodb.net/test?retryWrites=true&w=majority")
         .then(() => console.log('Connected...'))
         .catch(e => console.log(e));
 
+    app.use(bodyParser());
 
+   
     app.use(express.static(path.join(__dirname,"public")));
     app.set("view engine", "pug");
     app.set ('views','views');
@@ -26,7 +28,7 @@
         req.mongooes = mongooes;
         next();
     });
-    
+
      const home_page = require("./routes/home_page");
      app.use(home_page);
      const about = require("./routes/about");
@@ -35,7 +37,10 @@
      app.use(contact);  
      const admin = require("./routes/admin");
      app.use(admin);
-
+     
+        // const autor = require("./routes/author");
+        // app.use(autor);
+     
 
      
      
