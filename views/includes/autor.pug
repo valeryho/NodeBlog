@@ -6,7 +6,14 @@
                 input(type="text" name="author")
                 button.btn-primary(type='submit') ADD
             if authors
-                h3 Author list
-                ul
-                    for author in authors
-                        li=author.author
+                h3 Author list    
+                    ul
+                        for author in authors
+                            li(style="display:flex; justify-content: space-between;")=author.author
+                                form(style="display:inline;" action='/author/del' method='post')
+                                    input(style="display:none;" type="text" value=author._id name="author_to_del")
+                                    button.btn(type='submit') X
+
+                                
+                        
+                            

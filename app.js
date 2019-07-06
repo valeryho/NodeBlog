@@ -1,23 +1,23 @@
+    const bodyParser = require('body-parser');
     const express = require('express');
     const app=express();
     const path = require ('path');
-    
     const multer = require('multer');
     const upload = multer({dest: 'uploads/'});
     const moment = require('moment');
-    const bodyParser = require('body-parser');
-    const expressValidator = require('express-validator');
+    const urlecodedParser = bodyParser.urlencoded({extended: false});   
 
-    const mongo = require('mongodb');
+    const mongodb = require('mongodb');
     const mongooes = require('mongoose');
 
-    mongooes.connect("mongodb+srv://valery:admin333@cluster0-hglsu.mongodb.net/test?retryWrites=true&w=majority")
+    mongooes.connect("mongodb+srv://read_write:admin111@cluster0-hglsu.mongodb.net/test?retryWrites=true&w=majority")
         .then(() => console.log('Connected...'))
         .catch(e => console.log(e));
-
-    app.use(bodyParser());
-
    
+
+    
+
+    app.use(bodyParser()); 
     app.use(express.static(path.join(__dirname,"public")));
     app.set("view engine", "pug");
     app.set ('views','views');
