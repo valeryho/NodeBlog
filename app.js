@@ -14,9 +14,6 @@
         .then(() => console.log('Connected...'))
         .catch(e => console.log(e));
    
-
-    
-
     app.use(bodyParser()); 
     app.use(express.static(path.join(__dirname,"public")));
     app.set("view engine", "pug");
@@ -37,14 +34,8 @@
      app.use(contact);  
      const admin = require("./routes/admin");
      app.use(admin);
-     
-        // const autor = require("./routes/author");
-        // app.use(autor);
-     
 
-     
-     
-      const not_found = require("./routes/not_found");
+     const not_found = require("./routes/not_found");
       app.use(not_found);
      const      page = require("./routes/page");
      app.use(page);

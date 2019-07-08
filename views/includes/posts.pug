@@ -1,0 +1,17 @@
+.container
+    .row
+        div.col-lg-8.col-md-10.mx-auto 
+            DIV ADD NEW POSTS
+            form(method='post' action="/post/add" enctype="multipart/form-data" style="display:flex; flex-direction:column")  
+                input(type="text" name="title" placeholder="title")
+                input(type="text" name="post" placeholder="post")  
+                if authors
+                    select(name="author")
+                        for author in authors
+                            option(value=author.autor)=author.author 
+                if categories
+                    select(name="category")
+                        for category in categories
+                            option(value=category.category)=category.category                 
+                input(name='mainimage', type='file' ) 
+                button.btn-primary(type='submit') ADD
