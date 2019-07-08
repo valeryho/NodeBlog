@@ -15,3 +15,14 @@
                             option(value=category.category)=category.category                 
                 input(name='mainimage', type='file' ) 
                 button.btn-primary(type='submit') ADD
+            if posts
+                h3 POST LIST    
+                    ul
+                        for post in posts
+                            li.btn(style="margin:0;padding:0; display:flex; justify-content: space-between;align-items: center;")=post.title
+                                form(style="display:flex;" action='/post/del' method='post')
+                                    input(style="display:none;" type="text" value=post._id name="post_to_del")
+                                    button(type='submit') X 
+                                form(style="display:flex;" action='/post/edit' method='post')
+                                    input(style="display:none;" type="text" value=post._id name="post_to_del")
+                                    button(type='submit') EDIT  
