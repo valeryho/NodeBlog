@@ -130,9 +130,11 @@ router.post('/post/del', urlecodedParser, function (req, res, next) {
     require('../models/posts.model');
     const Posts = mongoose.model('posts');
     Posts.findById(post_id, function (err, doc) {
-       
+        
         var path_imj = path.join(__dirname, '..', 'public', 'uploads', doc.mainimage);        doc.remove();
-        fs.unlinkSync(path_imj);
+        if (fs.existsSync(path_imj))
+        {fs.unlinkSync(path_imj);}
+        
         res.redirect('/admin');
     });
 });
@@ -172,30 +174,30 @@ router.post('/post_editing', upload.single('mainimage'), function (req, res, nex
     let post = req.body.post;
     let author = req.body.author;
     let category = req.body.category;
-    let date = new Date();
-    
-    if (req.file) {
-        var mainimage = req.file.filename;;
-
-    } else {
-        var mainimage = 'default.png';
-    }   ;
+    let date = new Date();   
     Posts.findById(post_id, function (err, doc) {
-        var path_imj = path.join(__dirname, '..', 'public', 'uploads', doc.mainimage);
-        fs.unlinkSync(path_imj);
         doc._id = post_id;
         doc.title = title;
         doc.post = post;
         doc.author=author;
         doc.category=category;
         doc.date=date;
+        let mainimage=doc.mainimage;
+        if (req.file) {
+             var path_imj = path.join(__dirname, '..', 'public', 'uploads', doc.mainimage);
+             if (fs.existsSync(path_imj))
+                 {fs.unlinkSync(path_imj);}
+             mainimage = req.file.filename;
+           
+        }     
+
         doc.mainimage=mainimage;
+        doc.save();
         res.redirect('/admin');
     });
-
-    
-
 });
+
+
 
 
 

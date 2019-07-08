@@ -9,7 +9,7 @@ html(lang="en")
         .container
             .row
                 div.col-lg-8.col-md-10.mx-auto 
-                    form(method='post' action="/post_editing" style="display:flex;  flex-direction:column")
+                    form(method='post' action="/post_editing" style="display:flex;  flex-direction:column" enctype="multipart/form-data")
                         input(style="display:none;" type="text" value=post._id name="post_to_ed")
                         input(type="text" name="title" value=post.title)
                         input(type="text" name="post" value=post.post)
