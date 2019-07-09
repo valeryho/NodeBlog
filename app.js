@@ -18,7 +18,7 @@
     app.use(express.static(path.join(__dirname,"public")));
     app.set("view engine", "pug");
     app.set ('views','views');
-   
+    app.locals.moment = require('moment');
 
 
     app.use(function (req, res, next) {

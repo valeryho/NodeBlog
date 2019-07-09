@@ -1,8 +1,19 @@
 div.post-preview
-    -var hr='/p'+i;
-    a(href=hr)
-        h2.post-title Man must explore, and this is exploration at its greatest#{i}
-        h3.post-subtitle Problems look mighty small from 150 miles up
-    p.post-meta Posted by
-        a(href="") Start Bootstrap on September 24, 2019
-        
+    for post in posts
+        form(method='post' action="/post_detail")
+            input(type="text" name="viewed_post" value=post.id style="display:none")
+            img(src=`/uploads/${post.mainimage}` style="width:50%;overflow:hidden;" alt='' )
+            button.btn(type="submit" style="background:none;border:none;width:50% ")
+                h2.post-title=post.title
+                h3.post-subtitle=post.post
+                -let comments_count=0;
+                for comment  in comments
+                    if  comment.postid == post._id
+                        -coments_count++; 
+                div 
+                    i.fas.fa-comment 
+                    span #{comments_count}
+            p.post-meta Posted by-
+                a(href="")=post.author+'  on  '
+                a(href="")=moment(post.date).format("DD")+" "+moment(post.date).format("MMM")
+                

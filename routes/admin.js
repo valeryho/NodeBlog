@@ -27,6 +27,7 @@ router.get('/admin', (req, res, next) => {
                     .then((authors) => {
                         Posts.find({})
                             .then((posts) => {
+                                
                                 res.render('admin', {
                                     authors: authors,
                                     categories: categories,
@@ -167,8 +168,8 @@ router.post('/post/edit', urlecodedParser, function (req, res, next) {
 
 router.post('/post_editing', upload.single('mainimage'), function (req, res, next) {
 
-      require('../models/posts.model');
-      const Posts = mongoose.model('posts');
+    require('../models/posts.model');
+    const Posts = mongoose.model('posts');
     let post_id = req.body.post_to_ed;
     let title = req.body.title;
     let post = req.body.post;

@@ -10,6 +10,10 @@ const CommentsSchema = new Schema({
         type: String,
         required: true
     },
+    aproove: {
+        type: Boolean,
+        required: true
+    },
     email:{
         type: String,
         required: true
