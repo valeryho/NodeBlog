@@ -3,16 +3,18 @@ div.post-preview
         form(method='post' action="/post_detail")
             input(type="text" name="viewed_post" value=post.id style="display:none")
             img(src=`/uploads/${post.mainimage}` style="width:50%;overflow:hidden;" alt='' )
-            button.btn(type="submit" style="background:none;border:none;width:50% ")
+            button.btn(type="submit" style="background:none;border:none;width:50%;margin:0;padding:0 ")
                 h2.post-title=post.title
-                h3.post-subtitle=post.post
-                -let comments_count=0;
-                for comment  in comments
-                    if  comment.postid == post._id
-                        -coments_count++; 
-                div 
-                    i.fas.fa-comment 
-                    span #{comments_count}
+                div(style="height:50px;overflow:hidden;text-overflow: ellipsis; ")=post.post
+                -let comments_count = 0;
+                if comments
+                    for comment  in comments
+                        if  comment.postid == post._id
+                            if comment.aproove
+                                -comments_count++
+                    div 
+                        i.fas.fa-comment 
+                        span=comments_count
             p.post-meta Posted by-
                 a(href="")=post.author+'  on  '
                 a(href="")=moment(post.date).format("DD")+" "+moment(post.date).format("MMM")

@@ -7,9 +7,7 @@ const multer = require('multer');
 const upload = multer({dest: './public/uploads/'});
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
-const urlecodedParser = bodyParser.urlencoded({
-    extended: false
-});
+const urlecodedParser = bodyParser.urlencoded({extended: false});
 var fs = require('fs');
 var path = require('path');
 
@@ -64,8 +62,6 @@ router.post('/author/del', urlecodedParser, function (req, res, next) {
         res.redirect('/admin');
     })
 });
-
-
 router.post('/categories/add', function (req, res, next) {
     let category = req.body.categories;
     require('../models/categories.model');
@@ -90,7 +86,6 @@ router.post('/categories/del', urlecodedParser, function (req, res, next) {
         res.redirect('/admin');
     })
 });
-
 router.post('/post/add', upload.single('mainimage'), function (req, res, next) {
 
      let title = req.body.title;

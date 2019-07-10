@@ -3,7 +3,7 @@
         div.col-lg-8.col-md-10.mx-auto 
             form(method='post' action="/categories/add" style="display:flex; justify-content: space-between;align-items: center;")
                 label ADD Categories
-                input(type="text" name="categories")
+                input.form-control(type="text" name="categories")
                 button.btn-primary(type='submit') ADD
             if categories
                 h3 Categories list    
@@ -11,5 +11,5 @@
                         for category in categories
                             li.btn(style="margin:0;padding:0; display:flex; justify-content: space-between;align-items: center;")=category.category
                                 form(style="display:flex;" action='/categories/del' method='post')
-                                    input(style="display:none;" type="text" value=category._id name="category_to_del")
+                                    input.form-control(style="display:none;" type="text" value=category._id name="category_to_del")
                                     button(type='submit') X

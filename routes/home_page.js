@@ -29,7 +29,7 @@ router.get("/", (req, res, next) => {
                          .then((posts) => {
                                 Comments.find({})
                                 .then((comments) => {
-
+                                    
                                     res.render('index', {
                                         authors: authors,
                                         categories: categories,
@@ -47,17 +47,14 @@ router.get("/", (req, res, next) => {
 
 router.post('/post_detail', urlecodedParser, function (req, res, next) {
     let post_id = req.body.viewed_post;
-    require('../models/categories.model');
-    require('../models/authors.model');
+
     require('../models/posts.model');
     require('../models/comments.model');
     const Posts = mongoose.model('posts');
-    const Author = mongoose.model('author');
-    const Categories = mongoose.model('category');
     const Comments = mongoose.model('comments')
     Posts.findById(post_id)
         .then(post => {
-            Comments.findById(post_id)
+            Comments.find({postid:{$eq:post_id}})
                 .then(comments => {
                     res.render('postwievs', {
                         post:post,
@@ -65,8 +62,44 @@ router.post('/post_detail', urlecodedParser, function (req, res, next) {
                     });
                 })
 
-        })
+        });
 });
+
+
+router.post('/add_comment', urlecodedParser, function (req, res, next) {
+     
+     let postid = req.body.postid;
+     let name = req.body.name;
+    let aproove
+    if (req.body.aproove="true")
+        aproove=true;
+    else    
+        aproove = false;
+     let email = req.body.email;
+     let comment=req.body.comment;
+     let commentDate = new Date();
+     require('../models/comments.model');
+     const Comment = mongoose.model('comments');
+     require('../models/posts.model');
+     const Posts = mongoose.model('posts');
+     const addComent = new Comment({
+         postid: postid,
+         name: name,
+         aproove: aproove,
+         email: email,
+         comment: comment,
+         commentDate: commentDate
+     });
+     addComent.save()
+        .then(comment => {
+        })
+        .catch(e => console.log(e));
+next();
+});
+
+
+
+
 
 
 

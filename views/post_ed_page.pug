@@ -11,8 +11,8 @@ html(lang="en")
                 div.col-lg-8.col-md-10.mx-auto 
                     form(method='post' action="/post_editing" style="display:flex;  flex-direction:column" enctype="multipart/form-data")
                         input(style="display:none;" type="text" value=post._id name="post_to_ed")
-                        input(type="text" name="title" value=post.title)
-                        input(type="text" name="post" value=post.post)
+                        input.form-control(type="text" name="title" value=post.title)
+                        input.form-control(type="text" name="post" value=post.post)
                         if authors
                             select(name="author")
                                 for author in authors
@@ -28,7 +28,7 @@ html(lang="en")
                                     else
                                         option(value=category.category)=category.category                 
                         img(src=`/uploads/${post.mainimage}` style="width:50px;height:50px" alt='' )
-                        input(name='mainimage', type='file' value=post.mainimage ) 
+                        input.form-control(name='mainimage', type='file' value=post.mainimage ) 
                         button.btn-primary(type='submit') EDIT
                         a.btn-primary(href="/admin" style="text-align:center") DISCART
 

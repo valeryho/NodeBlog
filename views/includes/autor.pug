@@ -3,7 +3,7 @@
         div.col-lg-8.col-md-10.mx-auto 
             form(method='post' action="/author/add" style="display:flex; justify-content: space-between;align-items: center;")
                 label ADD AUTHOR 
-                input(type="text" name="author")
+                input.form-control(type="text" name="author")
                 button.btn-primary(type='submit') ADD
             if authors
                 h3 Author list    
@@ -11,7 +11,7 @@
                         for author in authors
                             li.btn(style="margin:0;padding:0; display:flex; justify-content: space-between;align-items: center;")=author.author
                                 form(style="display:flex;" action='/author/del' method='post')
-                                    input(style="display:none;" type="text" value=author._id name="author_to_del")
+                                    input.form-control(style="display:none;" type="text" value=author._id name="author_to_del")
                                     button(type='submit') X
         
 
