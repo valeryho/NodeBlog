@@ -39,7 +39,8 @@
       app.use(not_found);
      const      page = require("./routes/page");
      app.use(page);
-     
+     const post_page = require("./routes/post_page");
+     app.use(post_page);
         
 
     app.listen(3000);

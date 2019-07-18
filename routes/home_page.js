@@ -44,7 +44,6 @@ router.get("/", (req, res, next) => {
          .catch(e => console.log(e))
 });
 
-
 router.post('/post_detail', urlecodedParser, function (req, res, next) {
     let post_id = req.body.viewed_post;
 
@@ -54,27 +53,25 @@ router.post('/post_detail', urlecodedParser, function (req, res, next) {
     const Comments = mongoose.model('comments')
     Posts.findById(post_id)
         .then(post => {
-            Comments.find({postid:{$eq:post_id}})
+            Comments.find({
+                    postid: {
+                        $eq: post_id
+                    }
+                })
                 .then(comments => {
                     res.render('postwievs', {
-                        post:post,
+                        post: post,
                         comments: comments
                     });
                 })
-
         });
 });
 
-
 router.post('/add_comment', urlecodedParser, function (req, res, next) {
      
-     let postid = req.body.postid;
-     let name = req.body.name;
-    let aproove
-    if (req.body.aproove="true")
-        aproove=true;
-    else    
-        aproove = false;
+    let postid = req.body.postid;
+    let name = req.body.name;
+    let aproove = false;
      let email = req.body.email;
      let comment=req.body.comment;
      let commentDate = new Date();
@@ -92,9 +89,10 @@ router.post('/add_comment', urlecodedParser, function (req, res, next) {
      });
      addComent.save()
         .then(comment => {
+           res.redirect("/");
         })
         .catch(e => console.log(e));
-next();
+
 });
 
 

@@ -16,10 +16,12 @@ html(lang="en")
                         if comments
                             for comment  in comments
                                 if  comment.postid == post._id
-                                    -comments_count++;
+                                    if comment.aproove
+                                        -comments_count++;
                         span=comments_count
                 .col-lg-12.col-md-12.mx-auto
                     if comments
+                        -comments.sort(function(a,b){return b.commentDate - a.commentDate;})
                         for comment  in comments
                             if  comment.postid == post._id
                                 if comment.aproove==true
@@ -30,8 +32,7 @@ html(lang="en")
                                             div=moment(comment.commentDate).format("DD")+" "+moment(comment.commentDate).format("MMM")
                 .col-lg-12.col-md-12.mx-auto
                     form(method='post' action="/add_comment")
-                        input(type="text" style="display:none" name="postid" value=post._id)
-                        input(type="text" style="display:none" name="aproove" value="true")
+                        input(type="text" style="display:none" name="postid" value=post._id)                        
                         .form-group
                             label Name
                             input#exampleInputEmail1.form-control(type='text' name="name" )

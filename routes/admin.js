@@ -37,6 +37,52 @@ router.get('/admin', (req, res, next) => {
             .catch(e => console.log(e))
         });
 
+router.get('/admin/comments', (req, res, next) => {
+    require('../models/comments.model');
+    const Comments = mongoose.model('comments');
+    require('../models/posts.model');
+    const Posts = mongoose.model('posts');
+    Posts.find()
+        .then(posts=>{
+            Comments.find()
+                .then(comments => {
+                    res.render('admin_comment',{comments:comments,
+                                                posts:posts})
+                });
+            });
+    
+});
+router.post('/comment_action', function (req, res, next) {
+let comment_id = req.body.comment_id;
+let action = req.body.action;
+require('../models/comments.model');
+const Comments = mongoose.model('comments');
+// res.send(action);
+      if (action == "del")
+      {
+           Comments.findById(comment_id, function (err, doc) {
+               doc.remove();
+               res.redirect('/admin/comments');
+           });
+        };
+        if (action == "aproove")
+        {
+            Comments.findById(comment_id, function (err, doc) {
+                doc.aproove=true;
+                doc.save();
+                res.redirect('/admin/comments');
+            });
+        };
+        if (action == "disaprove") {
+            Comments.findById(comment_id, function (err, doc) {
+                doc.aproove = false;
+                doc.save();
+                res.redirect('/admin/comments');
+            });
+        };
+    
+ });
+
 
 router.post('/author/add', function (req, res, next) {
     let author = req.body.author;
@@ -159,8 +205,6 @@ router.post('/post/edit', urlecodedParser, function (req, res, next) {
         .catch(e => console.log(e))
 });
 
-
-
 router.post('/post_editing', upload.single('mainimage'), function (req, res, next) {
 
     require('../models/posts.model');
@@ -192,9 +236,5 @@ router.post('/post_editing', upload.single('mainimage'), function (req, res, nex
         res.redirect('/admin');
     });
 });
-
-
-
-
 
 module.exports = router;

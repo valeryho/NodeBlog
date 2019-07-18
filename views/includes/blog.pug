@@ -1,4 +1,5 @@
 div.post-preview
+    -posts.sort(function(a,b){return b.date - a.date;})
     for post in posts
         form(method='post' action="/post_detail")
             input(type="text" name="viewed_post" value=post.id style="display:none")
