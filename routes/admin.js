@@ -237,4 +237,20 @@ router.post('/post_editing', upload.single('mainimage'), function (req, res, nex
     });
 });
 
+router.get('/admin/users', (req, res, next) => {
+    
+    require('../models/users.model');
+    const Users = mongoose.model('users');
+    Users.find()
+        .then(users=>{
+            // res.send(users);
+            res.render('admin_users', {users:users});
+        })
+    
+});
+
+
+
+
+
 module.exports = router;

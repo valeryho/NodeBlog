@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 html(lang="en")
-    include includes/head.pug
+    include head.pug
     body
         -var url='/img/admin.jpg';
         -var title='ADMIN';
@@ -30,8 +30,4 @@ html(lang="en")
                             ul.navbar-nav.ml-auto
                                 li.nav-item
                                     a.nav-link(href="/admin/comments" style="color:white") COMMENT
-                                    a.nav-link(href="/admin/users" style="color:white") USER     
-        include includes/autor.pug
-        include includes/categories.pug
-        include includes/posts.pug
-        
+                                    a.nav-link(href="/admin/users" style="color:white") USER 

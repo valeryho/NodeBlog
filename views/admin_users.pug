@@ -1,0 +1,7 @@
+include includes/header_admin.pug
+.container
+    .row(style="display:block")    
+        for user in users
+            div(style="display:flex;justify-content: space-between")
+                div=user.user
+                div=user.role

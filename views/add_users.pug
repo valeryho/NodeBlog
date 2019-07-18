@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+html(lang="en")
+    include includes/head.pug
+    body
+        -var url='/img/home-bg.jpg';
+        -var title='REGISTER';
+        -var subtitle='A Blog Theme by Start Bootstrap';
+    include includes/header.pug   
+    div.container
+        div.row
+        form(method='post' action="/users/add_user")                          
+                .form-group
+                    label Name
+                    input#exampleInputEmail1.form-control(type='text' name="name" )
+                .form-group
+                    label Email address
+                    input#exampleInputEmail1.form-control(type='email' name="email" placeholder='Enter email')
+                    small#emailHelp.form-text.text-muted We&apos;ll never share your email with anyone else.                
+                .form-group
+                    label(for='exampleInputPassword1') Password
+                    input#exampleInputPassword1.form-control(type='password' name="password" placeholder='password')
+                .form-group
+                    label(for='exampleInputPassword1') Password Confirm
+                    input#exampleInputPassword1.form-control(type='password' name="pass_confirm" placeholder='Password Confirm')
+                button.btn.btn-primary(type='submit') Submit

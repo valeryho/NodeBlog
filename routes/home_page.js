@@ -96,9 +96,29 @@ router.post('/add_comment', urlecodedParser, function (req, res, next) {
 });
 
 
+router.get('/users', (req, res, next) => {
+    res.render('add_users', {});
+});
 
+router.post('/users/add_user', (req, res, next) => {
+    require('../models/users.model');
+    const Users = mongoose.model('users');
+    let name = req.body.name;
+    let email = req.body.email;
+    if (req.body.password == req.body.pass_confirm) {
+        let password = req.body.password;
+        const addUser = new Users({
+            user: name,
+            email: email,
+            password: password,
+            role: 'user',
+        });
+        addUser.save()
+            .then((user) => {
+                res.redirect("/");
+            })
+            .catch(e => console.log(e));
+    }
 
-
-
-
+});
 module.exports = router;
