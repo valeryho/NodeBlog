@@ -1,5 +1,12 @@
 div.post-preview
-    -posts.sort(function(a,b){return b.date - a.date;})
+    div(style="display:flex"    )    
+        -var pag_n=1;
+        while  posts_counter>0
+            form(method='post' action="/")
+                input(type="hidden" value=pag_n name="page_number")
+                button(type="submit")=pag_n 
+            -pag_n++;
+            -posts_counter-=5;      
     for post in posts
         form(method='post' action="/post_detail")
             input(type="text" name="viewed_post" value=post.id style="display:none")
@@ -19,4 +26,6 @@ div.post-preview
             p.post-meta Posted by-
                 a(href="")=post.author+'  on  '
                 a(href="")=moment(post.date).format("DD")+" "+moment(post.date).format("MMM")
-                
+       
+            
+        

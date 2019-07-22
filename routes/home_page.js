@@ -9,7 +9,7 @@ const urlecodedParser = bodyParser.urlencoded({
 
 
 
-router.get("/", (req, res, next) => {
+router.get("/", urlecodedParser,(req, res, next) => {
 
      require('../models/categories.model');
      require('../models/authors.model');
@@ -20,7 +20,7 @@ router.get("/", (req, res, next) => {
      const Author = mongoose.model('author');
      const Categories = mongoose.model('category');
      const Comments = mongoose.model('comments');
-
+     let page_n = 1;
      Categories.find({})
          .then(categories => {
              Author.find({})
@@ -29,12 +29,18 @@ router.get("/", (req, res, next) => {
                          .then((posts) => {
                                 Comments.find({})
                                 .then((comments) => {
-                                    
+                                    posts.sort(function (a, b) {
+                                        return b.date - a.date;
+                                    });
+                                    let t_p = posts.slice((page_n - 1) * 5, (page_n - 1) * 5 + 5);
                                     res.render('index', {
                                         authors: authors,
                                         categories: categories,
                                         posts: posts,
-                                        comments:comments
+                                        comments:comments,
+                                        page_n:page_n,
+                                        posts: t_p,
+                                        posts_counter: posts.length,
                                     });
                                 });
 
@@ -42,11 +48,11 @@ router.get("/", (req, res, next) => {
                  })
          })
          .catch(e => console.log(e))
+
 });
 
 router.post('/post_detail', urlecodedParser, function (req, res, next) {
     let post_id = req.body.viewed_post;
-
     require('../models/posts.model');
     require('../models/comments.model');
     const Posts = mongoose.model('posts');
@@ -145,5 +151,42 @@ router.post('/users/checkLogin',urlecodedParser, (req, res, next) => {
                 });
                 });
    
+});
+
+router.post("/", urlecodedParser, (req, res, next) => {
+          require('../models/categories.model');
+          require('../models/authors.model');
+          require('../models/posts.model');
+          require('../models/comments.model');
+          const Posts = mongoose.model('posts');
+          const Author = mongoose.model('author');
+          const Categories = mongoose.model('category');
+          const Comments = mongoose.model('comments');
+          let page_n = 1;
+      page_n = req.body.page_number;
+          Categories.find({})
+              .then(categories => {
+                  Author.find({})
+                      .then((authors) => {
+                          Posts.find({})
+                              .then((posts) => {
+                                  Comments.find({})
+                                      .then((comments) => {
+                                          posts.sort(function (a, b) {return b.date - a.date;});
+                                          let t_p=posts.slice((page_n - 1) * 5, (page_n - 1) * 5+5);
+                                          res.render('index', {
+                                              authors: authors,
+                                              categories: categories,
+                                              posts: t_p,
+                                              posts_counter: posts.length,
+                                              comments: comments,
+                                              page_n: page_n
+                                          });
+                                      });
+
+                              })
+                      })
+              })
+              .catch(e => console.log(e))
 });
 module.exports = router;
