@@ -4,4 +4,16 @@ include includes/header_admin.pug
         for user in users
             div(style="display:flex;justify-content: space-between")
                 div=user.user
-                div=user.role
+                form(action="/admin/users/role" method='POST')
+                    input(type="hidden" value=user._id name="us_id")
+                    select(name="role")
+                        -let roles=["admin","user","moderator"]
+                        for role in roles
+                            if role===user.role 
+                                option(value=role selected)=role
+                            else
+                                option(value=role)=role
+                    button(type="submit") shenge
+                form(action="/admin/users/del" method='POST')
+                    input(type="hidden" value=user._id name="us_id")
+                    button(type="submit") X

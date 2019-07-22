@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+html(lang="en")
+    include includes/head.pug
+    body
+        -var url='/img/home-bg.jpg';
+        -var title='SIGN IN';
+        -var subtitle='';
+    include includes/header.pug   
+    div.container
+        div.row
+        form(method='post' action="/users/checkLogin")                          
+                .form-group
+                    label Name
+                    input#exampleInputEmail1.form-control(type='text' name="name" )
+                .form-group
+                    label(for='exampleInputPassword1') Password
+                    input#exampleInputPassword1.form-control(type='password' name="password" placeholder='password')
+                button.btn.btn-primary(type='submit') Submit

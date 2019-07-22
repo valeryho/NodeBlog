@@ -115,10 +115,35 @@ router.post('/users/add_user', (req, res, next) => {
         });
         addUser.save()
             .then((user) => {
+                
                 res.redirect("/");
             })
             .catch(e => console.log(e));
     }
 
+});
+
+router.get('/sign_in', (req, res, next) => {
+    res.render('sign_in', {});
+});
+
+router.post('/users/checkLogin',urlecodedParser, (req, res, next) => {
+    require('../models/users.model');
+    const Users = mongoose.model('users');
+    let user = req.body.name;
+    let password = req.body.password;
+  
+    let check=false;
+        Users.find()
+            .then(users => {
+                users.forEach(us=>{
+                     if ((us.user === user)&&(us.password===password))
+                    {
+                        console.log(us.user);
+                    }
+
+                });
+                });
+   
 });
 module.exports = router;

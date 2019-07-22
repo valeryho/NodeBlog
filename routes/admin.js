@@ -248,6 +248,26 @@ router.get('/admin/users', (req, res, next) => {
         })
     
 });
+router.post('/admin/users/del', (req, res, next) => {
+    let id=req.body.us_id
+    require('../models/users.model');
+    const Users = mongoose.model('users');
+   Users.findById(id, function (err, doc){
+       doc.remove();
+        res.redirect('/admin/users');
+   });
+});
+router.post('/admin/users/role', (req, res, next) => {
+    let id = req.body.us_id;
+    let role=req.body.role;
+    require('../models/users.model');
+    const Users = mongoose.model('users');
+    Users.findById(id, function (err, doc) {
+        doc.role=role;
+        doc.save();
+        res.redirect('/admin/users');
+    });
+});
 
 
 
